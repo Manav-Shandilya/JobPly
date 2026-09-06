@@ -62,7 +62,7 @@ describe('checkProfileCompleteness', () => {
   it('should return complete: false with missing fields when profile is null', () => {
     const result = checkProfileCompleteness(null);
     expect(result.complete).toBe(false);
-    expect(result.missing_fields).toEqual(['full_name', 'email', 'phone', 'resume_key']);
+    expect(result.missing_fields).toEqual(['full_name', 'email', 'phone']);
   });
 
   it('should identify specific missing fields', () => {
@@ -75,7 +75,6 @@ describe('checkProfileCompleteness', () => {
     const result = checkProfileCompleteness(profile);
     expect(result.complete).toBe(false);
     expect(result.missing_fields).toContain('email');
-    expect(result.missing_fields).toContain('resume_key');
     expect(result.missing_fields).not.toContain('full_name');
     expect(result.missing_fields).not.toContain('phone');
   });
@@ -199,7 +198,6 @@ describe('Application Routes', () => {
       expect(body.error.code).toBe('PROFILE_INCOMPLETE');
       expect(body.error.details.missing_fields).toContain('email');
       expect(body.error.details.missing_fields).toContain('phone');
-      expect(body.error.details.missing_fields).toContain('resume_key');
     });
 
     it('should return 409 when application already exists', async () => {

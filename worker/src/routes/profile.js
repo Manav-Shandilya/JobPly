@@ -256,6 +256,11 @@ export function profileRoutes(router) {
 
   // ─── POST /api/profile/resume ────────────────────────────────
   router.post('/api/profile/resume', withAuth, async (request, env) => {
+    // Resume upload requires R2 — return a clear message if not configured
+    if (!env.RESUME_BUCKET) {
+      return validationError('Resume upload is not available yet. You can fill in your profile details manually.');
+    }
+
     let formData;
     try {
       formData = await request.formData();

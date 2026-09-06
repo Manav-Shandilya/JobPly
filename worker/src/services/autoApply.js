@@ -2,12 +2,11 @@
  * Auto-apply service.
  *
  * Implements redirect-based auto-apply logic:
- * 1. Check profile completeness (full_name, email, phone, resume_key)
+ * 1. Check profile completeness (full_name, email, phone)
  * 2. Check for duplicate application (UNIQUE user_id + job_listing_id)
- * 3. Fetch QA matches for common job questions
- * 4. Retrieve apply_url from cached job listing
- * 5. Build redirect URL with pre-fill params where supported
- * 6. Create Application_Record with status "submitted"
+ * 3. Retrieve apply_url from cached job listing
+ * 4. Build redirect URL with pre-fill params where supported
+ * 5. Create Application_Record with status "submitted"
  *
  * @module services/autoApply
  */
@@ -15,7 +14,7 @@
 /**
  * Required profile fields for auto-apply.
  */
-const REQUIRED_PROFILE_FIELDS = ['full_name', 'email', 'phone', 'resume_key'];
+const REQUIRED_PROFILE_FIELDS = ['full_name', 'email', 'phone'];
 
 /**
  * Check whether a user's profile has all fields required for auto-apply.

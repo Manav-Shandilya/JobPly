@@ -11,9 +11,14 @@ compatibility_date = "2024-01-01"
 [[d1_databases]]
 binding = "JOBPLY_DB"
 database_name = "jobply-db"
-database_id = "placeholder-replace-after-d1-create"
+database_id = "b07ba298-b1fa-4132-91a3-3585db38af78"
 migrations_dir = "migrations"
 
-[[r2_buckets]]
-binding = "RESUME_BUCKET"
-bucket_name = "jobply-resumes"
+# R2 bucket for resume uploads (enable later if needed)
+# [[r2_buckets]]
+# binding = "RESUME_BUCKET"
+# bucket_name = "jobply-resumes"
+
+[observability.logs]
+enabled = true
+invocation_logs = true

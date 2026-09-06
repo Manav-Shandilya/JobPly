@@ -14,7 +14,17 @@ import { savedRoutes } from './routes/saved.js';
  * In production, replace with the deployed frontend URL.
  */
 const { preflight, corsify } = cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: (origin) => {
+    const allowed = [
+      'http://localhost:5173',
+      'http://127.0.0.1:5173',
+      'https://jobply.pages.dev',
+    ];
+    // Also allow *.jobply.pages.dev (deployment preview URLs)
+    if (allowed.includes(origin)) return origin;
+    if (origin && origin.endsWith('.jobply.pages.dev')) return origin;
+    return undefined;
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   headers: ['Content-Type', 'Authorization'],
 });
