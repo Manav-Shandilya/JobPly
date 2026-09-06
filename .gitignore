@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+*.swp
+*.swo
+*.log
+npm-debug.log*

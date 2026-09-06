@@ -1,0 +1,22 @@
+{
+  "name": "jobply-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest --run"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "itty-router": "^5.0.18",
+    "jose": "^5.9.6"
+  },
+  "devDependencies": {
+    "better-sqlite3": "^13.0.3",
+    "fast-check": "^4.9.0",
+    "vitest": "^4.1.11",
+    "wrangler": "^3.28.0"
+  }
+}
