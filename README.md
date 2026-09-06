@@ -1,95 +1,151 @@
-# JobPly
+<div align="center">
 
-A job search aggregator for Indian tech jobs. Search listings from multiple sources, filter by city/salary/experience, save jobs, and quick-apply — all from one place.
+# ⚡ JobPly
 
-## Features
+### Search less. Apply faster.
 
-- **Aggregated search** — Queries Adzuna India and JSearch (LinkedIn, Indeed, Glassdoor, Naukri) in parallel, deduplicates results, and shows the original source for each listing
-- **Smart filters** — Filter by location (any Indian city), salary range (INR), job type, work mode (remote/hybrid/on-site), experience level, and posting date
-- **Quick Apply** — One click opens the employer's application page with your name, email, and phone pre-filled via URL parameters
-- **Application tracking** — Dashboard to monitor all applications with status updates (submitted, under review, interview scheduled, etc.)
-- **Saved jobs** — Bookmark listings for later, with automatic expiry detection when a listing is taken down
-- **QA Library** — Save answers to common application questions for quick reference while applying
-- **Profile management** — Store your details and resume once, use them across all applications
+**One platform to search Indian tech jobs from multiple sources, filter smartly, and apply in one click.**
 
-## Tech stack
+[![Live App](https://img.shields.io/badge/Live_Demo-jobply.pages.dev-1A1A1A?style=for-the-badge&logo=cloudflare&logoColor=white)](https://jobply.pages.dev)
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18 + Vite, React Router v6 |
-| Backend | Cloudflare Workers + itty-router |
-| Database | Cloudflare D1 (SQLite at the edge) |
-| File storage | Cloudflare R2 (resume uploads) |
-| Auth | JWT (jose + bcryptjs) |
-| Job sources | Adzuna India API, JSearch API (RapidAPI) |
-| Testing | Vitest, fast-check, Testing Library |
+[![License](https://img.shields.io/badge/License-MIT-C17817?style=for-the-badge)](#license)
 
-## Project structure
+</div>
+
+---
+
+## 🎯 What is JobPly?
+
+JobPly is an open-source job search aggregator built for **Indian tech professionals**. Instead of checking 5 different job boards every day, search them all at once — Adzuna, LinkedIn, Indeed, Glassdoor, and Naukri — from a single clean interface.
+
+<div align="center">
+
+| 🔍 Search | ⚡ Apply | 📊 Track |
+|:---------:|:-------:|:--------:|
+| Query multiple job sources in parallel | One click opens the application | Monitor all applications in one dashboard |
+
+</div>
+
+---
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%">
+
+### 🔍 Aggregated Search
+Search Adzuna, LinkedIn, Indeed, Glassdoor & Naukri simultaneously. Results show the **original source** for each listing.
+
+### 🎛️ Smart Filters
+Filter by **city** (any Indian city), **salary range** (₹ INR), **job type**, **work mode** (remote/hybrid/on-site), **experience level**, and **posting date**.
+
+### ⚡ Quick Apply
+One click opens the employer's application page.
+
+</td>
+<td width="50%">
+
+### 📊 Application Tracker
+Dashboard to monitor all applications. Update status: *submitted → under review → interview → offer*.
+
+### 🔖 Saved Jobs
+Bookmark listings for later. Automatic **expiry detection** when a listing is taken down.
+
+### 💬 QA Library
+Save answers to common application questions. **Fuzzy-match search** finds your best answer instantly.
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🛠️ Tech Stack
+
+<div align="center">
+
+| Layer | Tech |
+|:------|:-----|
+| **Frontend** | React 18 · Vite · React Router v6 |
+| **Backend** | Cloudflare Workers · itty-router |
+| **Database** | Cloudflare D1 (SQLite at the edge) |
+| **Auth** | JWT (jose + bcryptjs) |
+| **Job Sources** | Adzuna India API · JSearch (RapidAPI) |
+| **Testing** | Vitest · fast-check · Testing Library |
+
+</div>
+
+---
+
+## 📁 Project Structure
 
 ```
 JobPly/
-├── frontend/                # React SPA
+├── frontend/                 # React SPA
 │   ├── src/
-│   │   ├── components/      # UI components by feature
-│   │   │   ├── auth/        # Login, Register, ProfileSetup
-│   │   │   ├── jobs/        # Search, filters, cards, detail
-│   │   │   ├── qa/          # QA Library CRUD + match
-│   │   │   ├── applications/# Application tracking dashboard
-│   │   │   ├── saved/       # Saved jobs list + save button
-│   │   │   └── layout/      # Nav bar + layout wrapper
-│   │   ├── hooks/           # useAuth, useJobs, useApplications, useAutoApply
-│   │   └── services/        # Axios API client with JWT interceptor
-│   └── vite.config.js       # Dev proxy to worker on :8787
+│   │   ├── components/
+│   │   │   ├── auth/         # Login, Register, Profile Setup
+│   │   │   ├── jobs/         # Search, Filters, Cards, Detail
+│   │   │   ├── qa/           # QA Library CRUD + Match
+│   │   │   ├── applications/ # Application Tracker
+│   │   │   ├── saved/        # Saved Jobs + Save Button
+│   │   │   └── layout/       # Nav Bar + Layout
+│   │   ├── hooks/            # useAuth, useJobs, useApplications
+│   │   └── services/         # API client with JWT interceptor
+│   └── vite.config.js
 │
-└── worker/                  # Cloudflare Worker API
+└── worker/                   # Cloudflare Worker API
     ├── src/
-    │   ├── routes/           # auth, profile, jobs, qa, applications, saved
-    │   ├── services/         # jobAggregator, deduplicator, textSimilarity, autoApply
-    │   │   └── sources/      # adzunaAdapter, jsearchAdapter
-    │   ├── middleware/       # JWT auth
-    │   └── utils/            # validation, error helpers
-    ├── schema.sql            # D1 database schema
-    └── wrangler.toml         # Cloudflare config
+    │   ├── routes/            # auth, profile, jobs, qa, applications, saved
+    │   ├── services/          # aggregator, deduplicator, similarity, auto-apply
+    │   │   └── sources/       # adzunaAdapter, jsearchAdapter
+    │   ├── middleware/        # JWT auth
+    │   └── utils/             # validation, error helpers
+    ├── schema.sql
+    └── wrangler.toml
 ```
 
-## Getting started
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
-- npm
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/) (`npm install -g wrangler`)
+- **Node.js 18+** and **npm**
+- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/) — `npm install -g wrangler`
 
-### API keys
+### Get API Keys
 
-You need:
-- **Adzuna** — Sign up at [developer.adzuna.com](https://developer.adzuna.com) for `APP_ID` and `APP_KEY`
-- **JSearch** — Subscribe at [rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch) for a `RAPIDAPI_KEY`
+| Service | Where to sign up | What you get |
+|---------|-----------------|--------------|
+| **Adzuna** | [developer.adzuna.com](https://developer.adzuna.com) | `APP_ID` + `APP_KEY` |
+| **JSearch** | [rapidapi.com/jsearch](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch) | `RAPIDAPI_KEY` |
 
-### Setup
+### Install & Configure
 
 ```bash
-# Clone and install
+# Clone the repo
+git clone https://github.com/YOUR_USERNAME/JobPly.git
 cd JobPly
+
+# Install dependencies
 cd worker && npm install && cd ..
 cd frontend && npm install && cd ..
 
-# Create local secrets file
-cat > worker/.dev.vars << EOF
-ADZUNA_APP_ID=your_adzuna_app_id
-ADZUNA_APP_KEY=your_adzuna_app_key
+# Create your local secrets file
+cat > worker/.dev.vars << 'EOF'
+ADZUNA_APP_ID=your_app_id
+ADZUNA_APP_KEY=your_app_key
 RAPIDAPI_KEY=your_rapidapi_key
-JWT_SECRET=any_random_string_for_dev
+JWT_SECRET=any_random_string
 EOF
 
 # Set up the local database
-cd worker
-npx wrangler d1 execute jobply-db --local --file=schema.sql
+cd worker && npx wrangler d1 execute jobply-db --local --file=schema.sql
 ```
 
-### Run locally
-
-Open two terminals:
+### Run Locally
 
 ```bash
 # Terminal 1 — Backend (port 8787)
@@ -101,19 +157,98 @@ cd frontend
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173)
+Open **[http://localhost:5173](http://localhost:5173)** 🎉
 
-### Run tests
+### Run Tests
 
 ```bash
-# Backend (171 tests)
-cd worker && npm test
-
-# Frontend (118 tests)
-cd frontend && npm test
+cd worker && npm test     # 171 backend tests
+cd frontend && npm test   # 118 frontend tests
 ```
 
+---
 
-## License
+## 📡 API Reference
 
-MIT
+<details>
+<summary><strong>Auth</strong></summary>
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/auth/register` | Create account |
+| `POST` | `/api/auth/login` | Log in → JWT |
+| `POST` | `/api/auth/logout` | Log out |
+
+</details>
+
+<details>
+<summary><strong>Profile</strong></summary>
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/profile` | Get user profile |
+| `PUT` | `/api/profile` | Update profile |
+| `POST` | `/api/profile/resume` | Upload resume |
+
+</details>
+
+<details>
+<summary><strong>Jobs</strong></summary>
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/jobs/search` | Search with filters |
+| `GET` | `/api/jobs/:id` | Job detail |
+| `POST` | `/api/jobs/:id/auto-apply` | Quick apply |
+
+</details>
+
+<details>
+<summary><strong>Applications</strong></summary>
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/applications` | List all (paginated) |
+| `PATCH` | `/api/applications/:id/status` | Update status |
+
+</details>
+
+<details>
+<summary><strong>QA Library</strong></summary>
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/qa` | List QA pairs |
+| `POST` | `/api/qa` | Create pair |
+| `PUT` | `/api/qa/:id` | Update pair |
+| `DELETE` | `/api/qa/:id` | Delete pair |
+| `POST` | `/api/qa/match` | Find matching answer |
+
+</details>
+
+<details>
+<summary><strong>Saved Jobs</strong></summary>
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/saved-jobs` | List saved |
+| `POST` | `/api/saved-jobs` | Save/unsave (toggle) |
+| `DELETE` | `/api/saved-jobs/:id` | Remove saved |
+
+</details>
+
+---
+
+## 📄 License
+
+MIT — do whatever you want with it.
+
+---
+
+<div align="center">
+
+**If this helped you, consider giving it a ⭐**
+
+[Live Demo](https://jobply.pages.dev)
+
+</div>
