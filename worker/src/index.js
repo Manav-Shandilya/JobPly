@@ -20,7 +20,6 @@ const { preflight, corsify } = cors({
       'http://127.0.0.1:5173',
       'https://jobply.pages.dev',
     ];
-    // Also allow *.jobply.pages.dev (deployment preview URLs)
     if (allowed.includes(origin)) return origin;
     if (origin && origin.endsWith('.jobply.pages.dev')) return origin;
     return undefined;
