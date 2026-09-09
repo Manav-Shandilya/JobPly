@@ -1,9 +1,4 @@
 /**
- * Standard error response helpers matching the design error format:
- * { error: { code, message, details } }
- */
-
-/**
  * Create a JSON error response with the standard format.
  * @param {string} code - Error code (e.g. 'VALIDATION_ERROR')
  * @param {string} message - Human-readable description
